@@ -102,6 +102,11 @@ def write_to_csv_for_numpy(library):
                             class_writer = csv.writer(f_class_descrip, dialect="excel")
                             error_writer = csv.writer(f_error, dialect="excel")
 
+                            # method writer headers
+                            method_writer.writerow(["Library", "Package", "Class", "Method", "Level Added",
+                                                    "Method Description", "Method Parameters", "Method Returns",
+                                                    "Class Description", "Package Description"])
+
                             for package in library.packages:
                                 # Assemble rows for package descriptions and errors
                                 row_package = [library.name,package.name, len(package.classes)
@@ -126,9 +131,9 @@ def write_to_csv_for_numpy(library):
                                     class_writer.writerow(row_class)
                                     for method in api_class.methods:
                                         # Assemble rows for class descriptions
-                                        row_method = [library.name, package.name, api_class.name, method.name
+                                        row_method = [library.name, package.name, api_class.name, method.name, method.api_level
                                                       ,method.description.strip(), method.parameters.strip()
-                                                      , method.returns.strip()]
+                                                      , method.returns.strip(), api_class.description.strip(), package.description.strip()]
 
                                         # Write to method file
                                         method_writer.writerow(row_method)

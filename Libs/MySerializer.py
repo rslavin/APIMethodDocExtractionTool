@@ -29,7 +29,7 @@ def serialize_method(method):
 
     # Add "!1*" as a delimiter between method info to facilitate unserialization
     ret = str(method.name) + "!1*" + str(method.description) + "!1*" + str(method.parameters)
-    ret += "!1*" + str(method.returns)
+    ret += "!1*" + str(method.returns) + "!1*" + method.api_level
     return str(ret)
 
 
@@ -111,6 +111,7 @@ def unserialize_method(method_string):
     ret_method.description = lines[1]
     ret_method.parameters = lines[2]
     ret_method.returns = lines[3]
+    ret_method.api_level = lines[4]
     return ret_method
 
 

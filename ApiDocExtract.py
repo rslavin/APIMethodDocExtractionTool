@@ -136,7 +136,7 @@ def main():
     # Execute processes
     packages_completed = 0
     with ProcessPoolExecutor(max_workers=max_workers) as executor:
-        for i in range(0,10):#  len(package_urls)):
+        for i in range(0,len(package_urls)):#  len(package_urls)):
             process_id = i+1
             future = executor.submit(my_process, process_id, package_urls[i], verbose, library.name
                                      , total_packages, api_level)

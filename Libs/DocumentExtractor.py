@@ -107,9 +107,15 @@ def scrape_method_info(container_tag):
     method_name = str(method_name_tag.contents[0])
     new_method = ApiMethod(method_name)
 
+    # Get api level added
+    method_api_tag = container_tag.find("div", class_="api-level")
+    if method_api_tag:
+        new_method.attach_api_level(method_api_tag)
+
     # Populate method description
     container_tag = container_tag.find("p")
     new_method.attach_descriptions(container_tag)
+
 
     # Check for more descriptions in the next tags
     for tag in container_tag.next_siblings:

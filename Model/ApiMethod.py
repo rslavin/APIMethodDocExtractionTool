@@ -2,11 +2,12 @@ import re
 
 class ApiMethod:
     '''This class represents a class in the API documentation'''
-    def __init__(self, name="",descrip="", parameters="", returns=""):
+    def __init__(self, name="",descrip="", parameters="", returns="", api_level="-1"):
         self.name = name
         self.description = descrip
         self.parameters = parameters
         self.returns = returns
+        self.api_level = api_level
 
 
     def string(self):
@@ -36,3 +37,10 @@ class ApiMethod:
                 self.returns += str(re.sub(r",","", string)).strip() + " "
         if self.returns != "":
             self.returns += "|||\n"
+
+    def attach_api_level(self, tag):
+        for string in tag.strings:
+            api_level = re.match(r".*API level (\d+).*", string)
+            if api_level:
+                self.api_level = api_level.group(1)
+                break
